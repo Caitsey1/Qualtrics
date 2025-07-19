@@ -107,87 +107,108 @@ user_problem_statement: "Build a Qualtrics Troubleshooter - RAG-based web applic
 backend:
   - task: "OpenAI Integration Setup"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/backend/server.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Added OpenAI API key to .env and implemented embedding/chat completion integration with proper async handling"
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: OpenAI API key has exceeded quota (Error 429: insufficient_quota). All embedding generation and chat completion requests are failing. Backend structure is correct but cannot process documents or generate responses with context."
         
   - task: "Document Processing Pipeline"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/backend/server.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented complete document processor with python-docx for text/image extraction, 500-token chunking with 50-token overlap, and base64 image storage"
+      - working: false
+        agent: "testing"
+        comment: "Document processing pipeline implementation is correct but fails due to OpenAI API quota exceeded. Cannot generate embeddings for document chunks. Upload endpoint returns HTTP 500 with 'Failed to process document' error."
         
   - task: "ChromaDB Vector Database"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/backend/server.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Set up ChromaDB with SQLite persistence, metadata storage for heading paths and image refs, embedding generation and storage"
+      - working: false
+        agent: "testing"
+        comment: "ChromaDB setup is correct and database is accessible, but currently empty (0 documents, 0 IDs). Cannot store vectors due to OpenAI embedding generation failures. Database structure and persistence are working."
         
   - task: "RAG Query Engine"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/backend/server.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented hybrid search with vector similarity + BM25 keyword fallback, context assembly, and image retrieval"
+      - working: false
+        agent: "testing"
+        comment: "RAG engine implementation is correct but cannot function due to empty ChromaDB (no embeddings) and OpenAI API quota issues. BM25 fallback and search structure are properly implemented."
         
   - task: "WebSocket Streaming Chat"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Built WebSocket endpoint for real-time streaming chat with GPT-4o, message persistence, and connection management"
+      - working: true
+        agent: "testing"
+        comment: "WebSocket connection, communication, and error handling working perfectly. Successfully establishes connections, receives messages, and properly handles cases with no indexed documents by returning appropriate error messages."
         
   - task: "File Upload and Reindexing"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/backend/server.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Added endpoints for manual document upload and reindexing, file watcher for auto-reindexing on changes"
+      - working: false
+        agent: "testing"
+        comment: "Upload and reindexing endpoints are correctly implemented but fail due to OpenAI API quota exceeded. File upload accepts .docx files correctly but processing fails during embedding generation. Reindex endpoint structure is correct."
         
   - task: "Chat Session Management"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented chat session creation, retrieval, and message history management with MongoDB storage"
+      - working: true
+        agent: "testing"
+        comment: "Session management working perfectly. Successfully creates sessions with proper schema (id, created_at, title), persists to MongoDB, retrieves sessions with correct ordering, and handles message history. All CRUD operations functional."
 
 frontend:
   - task: "React Chat Interface"
