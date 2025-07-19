@@ -291,3 +291,5 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: "Completed initial implementation of Qualtrics Troubleshooter with all core features: document ingestion pipeline, vector database, RAG query engine, streaming chat, and React frontend. Need comprehensive backend testing to verify OpenAI integration, document processing, vector search, and WebSocket functionality."
+  - agent: "testing"
+    message: "COMPREHENSIVE BACKEND TESTING COMPLETED. CRITICAL ISSUE IDENTIFIED: OpenAI API key has exceeded quota (Error 429: insufficient_quota). Core backend architecture is solid - FastAPI server, MongoDB, WebSocket connections, and session management all working perfectly. However, all OpenAI-dependent features (document processing, embeddings, RAG search) are blocked. Need valid OpenAI API key with available quota to test remaining functionality."
