@@ -211,9 +211,9 @@ class DocumentProcessor:
                     
                     chunk_metadata = {
                         "chunk_id": chunk_id,
-                        "heading_path": metadata['heading_path'],
+                        "heading_path": " > ".join(metadata['heading_path']) if metadata['heading_path'] else "",
                         "source_doc": docx_path.name,
-                        "image_refs": metadata['images'],
+                        "image_refs": ",".join(metadata['images']) if metadata['images'] else "",
                         "page_num": i + 1,
                         "text": sub_chunk
                     }
