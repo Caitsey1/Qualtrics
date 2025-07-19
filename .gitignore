@@ -1,4 +1,4 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring-files.
 
 # IDE and editors
 .idea/
@@ -31,7 +31,9 @@ dist/
 dist
 
 # Environment files (comprehensive coverage)
-
+.env
+backend/.env
+frontend/.env.local
 *token.json*
 *credentials.json*
 
@@ -60,6 +62,18 @@ chainlit.md
 
 # Deployment
 .vercel
+
+# Data directories - Qualtrics Troubleshooter
+data/chroma/
+data/manual/*.docx
+data/images/
+*.sqlite3
+
+# Test files
+*test*.py
+*_test.py
+backend_test.py
+rag_test.py
 
 # Data and databases
 agenthub/agents/youtube/db
