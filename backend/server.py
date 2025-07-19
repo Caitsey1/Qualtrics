@@ -552,8 +552,8 @@ Please provide a step-by-step solution to help with this Qualtrics issue."""
                         {"role": "user", "content": user_prompt}
                     ]
                     
-                    stream = await asyncio.to_thread(
-                        openai.chat.completions.create,
+                    # Create streaming response
+                    stream = openai.chat.completions.create(
                         model="gpt-4o",
                         messages=messages,
                         stream=True,
@@ -562,7 +562,7 @@ Please provide a step-by-step solution to help with this Qualtrics issue."""
                     )
                     
                     full_response = ""
-                    async for chunk in stream:
+                    for chunk in stream:
                         if chunk.choices[0].delta.content:
                             content = chunk.choices[0].delta.content
                             full_response += content
