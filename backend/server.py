@@ -348,10 +348,12 @@ class RAGQueryEngine:
                         # Get associated images
                         images = []
                         if metadata.get('image_refs'):
-                            for img_id in metadata['image_refs']:
-                                img_doc = await db.images.find_one({'id': img_id})
-                                if img_doc:
-                                    images.append(img_doc)
+                            img_ids = metadata['image_refs'].split(',') if metadata['image_refs'] else []
+                            for img_id in img_ids:
+                                if img_id.strip():
+                                    img_doc = await db.images.find_one({'id': img_id.strip()})
+                                    if img_doc:
+                                        images.append(img_doc)
                         
                         results.append({
                             'text': self.documents[idx],
