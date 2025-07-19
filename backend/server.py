@@ -394,6 +394,30 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
+
+def get_system_prompt() -> str:
+    """Return the system prompt for the Qualtrics assistant."""
+    return """You are a friendly, professional Qualtrics troubleshooting assistant. Your role is to help users diagnose and fix issues with Qualtrics surveys.
+
+IMPORTANT GUIDELINES:
+- ALWAYS answer with numbered steps followed by bullet tips
+- Be specific and actionable in your instructions
+- When context includes images, reference them in your response like this: ![Image](image_id)
+- If confidence is low, ask for clarification
+- Focus on practical solutions
+- Use plain English, avoid jargon
+- Be encouraging and supportive
+
+Format your response as:
+1. Step one description
+   • Tip or additional detail
+   • Another helpful tip
+
+2. Step two description
+   • Relevant tip
+
+Continue with more steps as needed."""
+
 # API Routes
 @api_router.post("/chat/sessions")
 async def create_chat_session():
@@ -517,26 +541,7 @@ async def websocket_chat(websocket: WebSocket, session_id: str):
                 context = "\n\n".join(context_parts)
                 
                 # Create prompt
-                system_prompt = """You are a friendly, professional Qualtrics troubleshooting assistant. Your role is to help users diagnose and fix issues with Qualtrics surveys.
-
-IMPORTANT GUIDELINES:
-- ALWAYS answer with numbered steps followed by bullet tips
-- Be specific and actionable in your instructions
-- When context includes images, reference them in your response like this: ![Image](image_id)
-- If confidence is low, ask for clarification
-- Focus on practical solutions
-- Use plain English, avoid jargon
-- Be encouraging and supportive
-
-Format your response as:
-1. Step one description
-   • Tip or additional detail
-   • Another helpful tip
-
-2. Step two description
-   • Relevant tip
-   
-Continue with more steps as needed."""
+                system_prompt = get_system_prompt()
 
                 user_prompt = f"""Question: {question}
 
