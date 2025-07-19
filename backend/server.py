@@ -505,7 +505,7 @@ async def websocket_chat(websocket: WebSocket, session_id: str):
                 chunk_ids = []
                 
                 for i, result in enumerate(search_results[:5]):  # Use top 5 results
-                    heading_path = " > ".join(result['metadata'].get('heading_path', []))
+                    heading_path = result['metadata'].get('heading_path', '')
                     context_parts.append(f"Section: {heading_path}\nContent: {result['text']}")
                     chunk_ids.append(result['metadata'].get('chunk_id'))
                     
