@@ -278,16 +278,14 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus:
+  current_focus: []
+  stuck_tasks:
     - "OpenAI Integration Setup"
     - "Document Processing Pipeline"
     - "ChromaDB Vector Database"
     - "RAG Query Engine"
-    - "WebSocket Streaming Chat"
     - "File Upload and Reindexing"
-    - "Chat Session Management"
-  stuck_tasks: []
-  test_all: true
+  test_all: false
   test_priority: "high_first"
 
 agent_communication:
